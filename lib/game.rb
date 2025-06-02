@@ -9,7 +9,7 @@ class Game
 
   def play
     loop do
-      declare_status
+      show_dashboard_status
       @player_guess = @player.make_guess
       update_dashboard(@player_guess)
       break if @count_left < 1 || @secret_word == @secret_word_dashboard.join('')
@@ -24,7 +24,7 @@ class Game
 
   private
 
-  def declare_status
+  def show_dashboard_status
     @current_count += 1
     @count_left = @max_count - @current_count
     puts "\n#{@count_left} count left to guess!"
