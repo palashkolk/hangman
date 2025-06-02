@@ -19,7 +19,6 @@ Pseudocode
     b) Outputs messages that 'computer has chosen a word and now guess it'
     c) Word is checked against letter count. It should be between 5 and 12 before returning it
 
-
 2. Create Human as guesser player
     a) Instance creates a player with name
     b) calling guess methods takes input from keyboard and returns it

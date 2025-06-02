@@ -1,5 +1,6 @@
 require_relative 'computer'
 require_relative 'player'
+require 'yaml'
 
 class Game
   def initialize
@@ -8,8 +9,12 @@ class Game
   end
 
   def play
+    puts 'Do you want load a saved game? y/n'
+    answer = gets.chomp.downcase
+    load_game if answer == 'y'
     loop do
       show_dashboard_status
+      save_game
       @player_guess = @player.make_guess
       update_dashboard(@player_guess)
       break if @count_left < 1 || @secret_word == @secret_word_dashboard.join('')
@@ -24,10 +29,59 @@ class Game
 
   private
 
+  def load_game
+    saved_files = Dir.glob('saves/*.yml')
+    return puts 'no saved games found' if saved_files.empty?
+
+    puts 'Choose a saved game to load:'
+    saved_files.each_with_index do |file, index|
+      puts "#{index + 1}: #{File.basename(file)}"
+    end
+    choice = nil
+    until choice && choice.between?(1, saved_files.size)
+      print 'Enter the number of the file: '
+      choice = gets.chomp.to_i
+    end
+    filename = "#{saved_files[choice - 1]}"
+    data = YAML.load_file(filename)
+    game = Game.new
+    game.instance_variable_set(:@secret_word, data[:secret_word])
+    game.instance_variable_set(:@secret_word_length, data[:secret_word_length])
+    game.instance_variable_set(:@current_count, data[:current_count])
+    game.instance_variable_set(:@count_left, data[:count_left])
+    game.instance_variable_set(:@secret_word_dashboard, data[:secret_word_dashboard])
+    game.instance_variable_set(:@wrong_letter_dashboard, data[:wrong_letter_dashboard])
+    game.instance_variable_set(:@player_guess, data[:player_guess])
+    game.instance_variable_set(:@max_count, data[:max_count])
+    puts 'Game loaded!'
+  end
+
+  def save_game
+    puts 'Do you want to save the game? y/n'
+    choice = gets.chomp.downcase
+    return unless choice == 'y'
+
+    data = { secret_word: @secret_word, secret_word_length: @secret_word_length, current_count: @current_count,
+             count_left: @count_left, seceret_word_dashboard: @secret_word_dashboard, wrong_letter_dashboard: @wrong_letter_dashboard, player_guess: @player_guess, max_count: @max_count }
+
+    make_directory_and_save(data)
+  end
+
+  def make_directory_and_save(data)
+    Dir.mkdir('saves') unless Dir.exist?('saves')
+    timestamp = Time.now.strftime('%Y%m%d_%H%M%S')
+    filename = "saves/hangman_#{timestamp}.yml"
+    File.open(filename, 'w') do |file|
+      file.write(YAML.dump(data))
+    end
+    puts "Game save as #{filename}. Exiting game ..."
+    exit
+  end
+
   def show_dashboard_status
     @current_count += 1
     @count_left = @max_count - @current_count
-    puts "\n#{@count_left} count left to guess!"
+    puts "\n#{@count_left} count is left to guess!"
   end
 
   def update_dashboard(player_guess)

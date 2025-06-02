@@ -1,0 +1,16 @@
+---
+:secret_word: lecture
+:secret_word_length: 7
+:current_count: 1
+:count_left: 11
+:seceret_word_dashboard:
+- _
+- _
+- _
+- _
+- _
+- _
+- _
+:wrong_letter_dashboard: []
+:player_guess: 
+:max_count: 12
