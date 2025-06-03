@@ -26,8 +26,10 @@ Pseudocode
 3. Game play starts
     a) Game instance creates setup with current count and max count
     b) Shows message that the game has started
+    c) Asks for loading saved game 
     c) shows count left for guessing before the game ends
     d) After every guess:
+    d) Offers to osave the current game
     d) Shows correct letters in the word with dashes for the yet to guessed letters
     e) Shows wronly guessed letter in spearate row with label
     f) Shows the stick figure status 
