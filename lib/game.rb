@@ -13,10 +13,10 @@ class Game
     answer = gets.chomp.downcase
     load_game if answer == 'y'
     loop do
-      show_dashboard_status
       save_game
       @player_guess = @player.make_guess
       update_dashboard(@player_guess)
+      show_dashboard_status
       break if @count_left < 1 || @secret_word == @secret_word_dashboard.join('')
     end
 
@@ -44,15 +44,16 @@ class Game
     end
     filename = "#{saved_files[choice - 1]}"
     data = YAML.load_file(filename)
-    game = Game.new
-    game.instance_variable_set(:@secret_word, data[:secret_word])
-    game.instance_variable_set(:@secret_word_length, data[:secret_word_length])
-    game.instance_variable_set(:@current_count, data[:current_count])
-    game.instance_variable_set(:@count_left, data[:count_left])
-    game.instance_variable_set(:@secret_word_dashboard, data[:secret_word_dashboard])
-    game.instance_variable_set(:@wrong_letter_dashboard, data[:wrong_letter_dashboard])
-    game.instance_variable_set(:@player_guess, data[:player_guess])
-    game.instance_variable_set(:@max_count, data[:max_count])
+    # game = Game.new
+    instance_variable_set(:@secret_word, data[:secret_word])
+    instance_variable_set(:@secret_word_array, data[:secret_word_array])
+    instance_variable_set(:@secret_word_length, data[:secret_word_length])
+    instance_variable_set(:@current_count, data[:current_count])
+    instance_variable_set(:@count_left, data[:count_left])
+    instance_variable_set(:@secret_word_dashboard, data[:secret_word_dashboard])
+    instance_variable_set(:@wrong_letter_dashboard, data[:wrong_letter_dashboard])
+    instance_variable_set(:@player_guess, data[:player_guess])
+    instance_variable_set(:@max_count, data[:max_count])
     puts 'Game loaded!'
   end
 
@@ -61,8 +62,8 @@ class Game
     choice = gets.chomp.downcase
     return unless choice == 'y'
 
-    data = { secret_word: @secret_word, secret_word_length: @secret_word_length, current_count: @current_count,
-             count_left: @count_left, seceret_word_dashboard: @secret_word_dashboard, wrong_letter_dashboard: @wrong_letter_dashboard, player_guess: @player_guess, max_count: @max_count }
+    data = { secret_word: @secret_word, secret_word_array: @secret_word_array, secret_word_length: @secret_word_length, current_count: @current_count,
+             count_left: @count_left, secret_word_dashboard: @secret_word_dashboard, wrong_letter_dashboard: @wrong_letter_dashboard, player_guess: @player_guess, max_count: @max_count }
 
     make_directory_and_save(data)
   end

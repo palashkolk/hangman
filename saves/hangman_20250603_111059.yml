@@ -1,0 +1,27 @@
+---
+:secret_word: electric
+:secret_word_array:
+- e
+- l
+- e
+- c
+- t
+- r
+- i
+- c
+:secret_word_length: 8
+:current_count: 7
+:count_left: 5
+:secret_word_dashboard:
+- e
+- l
+- e
+- c
+- t
+- _
+- i
+- c
+:wrong_letter_dashboard:
+- o
+:player_guess: t
+:max_count: 12

@@ -1,0 +1,18 @@
+---
+:secret_word: healing
+:secret_word_length: 7
+:current_count: 9
+:count_left: 3
+:secret_word_dashboard:
+- h
+- e
+- a
+- l
+- i
+- _
+- g
+:wrong_letter_dashboard:
+- o
+- u
+:player_guess: g
+:max_count: 12

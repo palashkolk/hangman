@@ -1,0 +1,26 @@
+---
+:secret_word: still
+:secret_word_array:
+- s
+- t
+- i
+- l
+- l
+:secret_word_length: 5
+:current_count: 8
+:count_left: 4
+:secret_word_dashboard:
+- _
+- _
+- i
+- _
+- _
+:wrong_letter_dashboard:
+- b
+- o
+- u
+- a
+- e
+- d
+:player_guess: d
+:max_count: 12
